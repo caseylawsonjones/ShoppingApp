@@ -1,0 +1,6 @@
+﻿body {
+}
+.VerticalCenter {
+    display:table-cell;
+    vertical-align: middle;
+}

@@ -1,0 +1,88 @@
+﻿@model ShoppingApp.Models.CodeFirst.Item
+@*@Styles.Render("~/Assets/CSS/ItemsDetails.css")*@
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h3>Item</h3>
+    <hr />
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-7 col-sm-7 VerticalCenter">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.CreationDate)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.CreationDate)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.UpdatedDate)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.UpdatedDate)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Name)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Price)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Price)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.MediaURL)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.MediaURL)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </dt>
+
+                    <dd>
+                        @Html.Raw(Model.Description) <!-- Allows HTML tags stored in the Description text to be desplayed as HTML -->
+                    </dd>
+
+                </dl>
+            </div>
+            <div class="col-md-1 col-sm-1"></div>
+            <div class="col-md-4 col-sm-4 VerticalCenter">
+                <img src="@Url.Content(Model.MediaURL)" class="img-responsive" alt="Image" />
+            </div>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm("Create", "CartItems", new { itemIDin = Model.Id }, FormMethod.Post)) {
+    @Html.AntiForgeryToken()
+    <div class="form-actions no-color">
+    <input type="submit" value="Add to Cart" class="btn btn-default" />
+    </div>
+}
+<p>
+    @if (User.IsInRole("Admin")) {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+        <b>&#124;</b>
+        @Html.ActionLink("Delete", "Delete", new { id = Model.Id })
+        <b>&#124;</b> 
+    }
+    @Html.ActionLink("Back to List", "Index")
+</p>

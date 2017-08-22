@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<body id="BodySection">
+    @model ICollection<ShoppingApp.Models.CodeFirst.Item>
+    <div class="LeftMarginIndent Prod_Info">
+        <!---PRODUCT LISTING -->
+        <div class="container">
+            <div class="Float_Left">
+                @if (User.IsInRole("Admin")) {
+                    @Html.ActionLink("Create New", "Create")
+                }
+            </div>
+            <div class="row">
+                    @foreach (var item in Model) {
+                        <div class="col-md-3 col-sm-6">
+                            <a href="@Url.Action("Details", "Items", new { id = item.Id })">
+                                <img src="@item.MediaURL" class="img-responsive" /></a>
+                            <div><h6>@item.Name</h6></div>
+                            <div><h6><b>$@item.Price</b></h6></div>
+                        </div>
+                    }
+            </div>
+        </div>
+    </div>
+
+    @*<script src="Scripts/jquery-1.9.1.js"></script>
+    <script src="Scripts/bootstrap.js"></script>*@
+</body>
+</html>
