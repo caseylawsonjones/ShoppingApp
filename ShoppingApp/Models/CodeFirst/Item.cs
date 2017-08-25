@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace ShoppingApp.Models.CodeFirst {
     public class Item {
-        public int Id { get; set; }
+        public int ID { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public string Name { get; set; }

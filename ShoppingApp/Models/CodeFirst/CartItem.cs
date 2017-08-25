@@ -19,6 +19,5 @@ namespace ShoppingApp.Models.CodeFirst {
                 return Count * Item.Price;
             }
         }
-
     }
 }

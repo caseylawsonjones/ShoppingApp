@@ -5,10 +5,9 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Product Details</h2>
 
 <div>
-    <h3>Item</h3>
     <hr />
     <div class="container-fluid">
         <div class="row">
@@ -71,17 +70,17 @@
         </div>
     </div>
 </div>
-@using (Html.BeginForm("Create", "CartItems", new { itemIDin = Model.Id }, FormMethod.Post)) {
+@using (Html.BeginForm("Create", "CartItems", new { itemIDin = Model.ID }, FormMethod.Post)) {
     @Html.AntiForgeryToken()
     <div class="form-actions no-color">
-    <input type="submit" value="Add to Cart" class="btn btn-default" />
+        <button type="submit" value="Add to Cart" class="btn btn-default form-actions" style="color: aliceblue; background-color: rgb(35,51,102);">Add to Cart</button>
     </div>
 }
 <p>
     @if (User.IsInRole("Admin")) {
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID })
         <b>&#124;</b>
-        @Html.ActionLink("Delete", "Delete", new { id = Model.Id })
+        @Html.ActionLink("Delete", "Delete", new { id = Model.ID })
         <b>&#124;</b> 
     }
     @Html.ActionLink("Back to List", "Index")

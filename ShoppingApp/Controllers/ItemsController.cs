@@ -8,20 +8,26 @@ using System.Web;
 using System.Web.Mvc;
 using ShoppingApp.Models;
 using ShoppingApp.Models.CodeFirst;
+using System.IO;
 
 namespace ShoppingApp.Controllers
 {
     public class ItemsController : Universal
     {
         //private ApplicationDbContext db = new ApplicationDbContext();
-
+        //This was commented out because the "Universal" controller, that was created as a parent controller for all
+        //controllers in this project, contains the statement there and is inherited by all child controllers
+        
+            
         // GET: Items
+        // INDEX
         public ActionResult Index()
         {
             return View(db.Items.ToList());
         }
 
         // GET: Items/Details/5
+        // DETAILS
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,7 +42,8 @@ namespace ShoppingApp.Controllers
             return View(item);
         }
 
-
+        //***************************************************************************************
+        //***************************************************************************************
         // GET: Items/Create
         [Authorize(Roles = "Admin")]
         public ActionResult Create()
@@ -52,19 +59,34 @@ namespace ShoppingApp.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,CreationDate,UpdatedDate,Name,Price,MediaURL,Description")] Item item)
+        public ActionResult Create([Bind(Include = "Id,CreationDate,UpdatedDate,Name,Price,MediaURL,Description")] Item item, HttpPostedFileBase image)
         {
-            if (ModelState.IsValid)
-            {
+            if (image != null && image.ContentLength > 0) {
+                var ext = Path.GetExtension(image.FileName).ToLower(); // Gets image's extension and then sets it to lower case
+                if (ext != ".png" && ext != ".jpg" && ext != ".jpeg" && ext != ".gif" && ext != ".bmp") {
+                    ModelState.AddModelError("image", "Invalid Format");
+                }
+            }
+            else {
+                // Maybe add a default image here instead of returning an error
+                ModelState.AddModelError("image", "No Image Selected");
+            }
+            if (ModelState.IsValid) {
+                var filePath = "/Assets/Images/";
+                var absPath = Server.MapPath("~" + filePath);
+                item.MediaURL = filePath + image.FileName;
+                image.SaveAs(Path.Combine(absPath, image.FileName));
+                item.CreationDate = System.DateTime.Now;
+                item.UpdatedDate = System.DateTime.Now;
                 db.Items.Add(item);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index"); // Consider sending this back to a blank Create view for ease with multiple new items
             }
-
             return View(item);
         }
 
-
+        //***************************************************************************************
+        //***************************************************************************************
         // GET: Items/Edit/5
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
@@ -88,18 +110,38 @@ namespace ShoppingApp.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,CreationDate,UpdatedDate,Name,Price,MediaURL,Description")] Item item)
+        public ActionResult Edit([Bind(Include = "Id,CreationDate,UpdatedDate,Name,Price,MediaURL,Description")] Item item, string mediaURL, HttpPostedFileBase image)
         {
-            if (ModelState.IsValid)
-            {
+            if (image != null && image.ContentLength > 0) {
+                var ext = Path.GetExtension(image.FileName).ToLower();
+                if (ext != ".png" && ext != ".jpg" && ext != ".jpeg" && ext != ".gif" && ext != ".bmp") {
+                    ModelState.AddModelError("image", "Invalid Format");
+                }
+            }
+            if (ModelState.IsValid) {
                 db.Entry(item).State = EntityState.Modified;
+                if (image != null) {
+                    var filePath = "/Assets/Images/";
+                    var absPath = Server.MapPath("~" + filePath);
+                    item.MediaURL = filePath + image.FileName;
+                    image.SaveAs(Path.Combine(absPath, image.FileName));
+                }
+            else {
+                //If the image value is null, insert the previous image rather than throw an error
+                //This sort of handling could be very nice if making small edits on multiple items.
+                //It would keep the user from having to re-establish the image for every single item.
+                item.MediaURL = mediaURL;
+            }
+
+                item.UpdatedDate = System.DateTime.Now;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(item);
         }
 
-
+        //***************************************************************************************
+        //***************************************************************************************
         // GET: Items/Delete/5
         [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
@@ -123,6 +165,8 @@ namespace ShoppingApp.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Item item = db.Items.Find(id);
+            var absPath = Server.MapPath("~" + item.MediaURL);
+            System.IO.File.Delete(absPath);
             db.Items.Remove(item);
             db.SaveChanges();
             return RedirectToAction("Index");

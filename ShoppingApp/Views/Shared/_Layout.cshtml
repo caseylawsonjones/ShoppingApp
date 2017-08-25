@@ -30,7 +30,9 @@
                 </div>
                 <div class="col-sm-2 Align_Text_Right">
                     @if (Request.IsAuthenticated) {
-                        <a class="fa fa-fw fa-shopping-cart fa-lg"@Url.Action("Index", "CartItems") style="text-decoration: none; color: white;"></a>
+                        <a href=@Url.Action("Index", "CartItems")>
+                            <i class="fa fa-fw fa-shopping-cart fa-lg" style="text-decoration: none; color: white;"></i>
+                        </a>
                         <small>
                             @ViewBag.CartItems.Count
                             Items
