@@ -22,7 +22,7 @@ namespace ShoppingApp.Controllers {
                 //ViewBag.ItemTypes = db.ItemTypes.AsNoTracking().OrderBy(testc => testc.TypeName).ToList();
                 //db.CartItems.AsNoTracking().whatever - this can be used to read the db and then close behind it
                 //I'm not sure what he was doing as it never was an issue for me.
-                //The Lambda statement => basically translatest to grab every item that meets the requirement and put in a list.
+                //The Lambda statement "=>" basically translatest to grab every item that meets the requirement and put in a list.
             }
 
             base.OnActionExecuting(filterContext); //This needs to be here

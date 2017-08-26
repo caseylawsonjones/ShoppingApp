@@ -193,6 +193,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OrderItemsController - Copy.cs" />
     <Compile Include="Controllers\OrderItemsController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\Universal.cs" />
@@ -201,6 +202,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CodeFirst\ShippingAddress.cs" />
     <Compile Include="Models\CodeFirst\Item.cs" />
     <Compile Include="Models\CodeFirst\OrderItem.cs" />
     <Compile Include="Models\CodeFirst\Order.cs" />
@@ -376,6 +378,8 @@
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.ttf" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.eot" />
     <Content Include="Scripts\tinymce\langs\readme.md" />
+    <None Include="Properties\PublishProfiles\cjones-shopping - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\cjones-shopping - Web Deploy.pubxml" />
     <None Include="Views\Items\Index.cshtml" />
     <Content Include="Assets\Scripts\bootstrap.js" />
     <Content Include="Assets\Scripts\bootstrap.min.js" />

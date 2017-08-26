@@ -6,7 +6,7 @@ using System.Web;
 namespace ShoppingApp.Models.CodeFirst {
     public class CartItem {
         public int ID { get; set; }
-        public string CustomerID { get; set; }
+        public string CustomerID { get; set; }  // All users' CartItem objects are stored in the same database.  This is compared to the current user's ID.
         public int ItemID { get; set; }  // Foreign key
         public int Count { get; set; }
         public DateTime CreationDate { get; set; }

@@ -11,24 +11,28 @@ namespace ShoppingApp.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        // PROPERTIES
         public string FirstName { get; set; }
         public string LastName { get; set; }
-
         public string FullName {  // just a Get, so it won't be in the database, but will be available for coding purposes
             get {
                 return FirstName = " " + LastName;
             }
         }
+        public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<CartItem> CartItems { get; set; }
+        public virtual ICollection<OrderItem> OrderItems { get; set; }
+        //public virtual ICollection<OrderArchiveItem> OrderArchiveItems { get; set; }
+        // ORDER ARCHIVING NEEDS TO BE CREATED BEFORE THIS CAN BE IMPLEMENTED
+        public virtual ICollection<ShippingAddress> ShippingAddresses { get; set; }
 
+        // CONSTRUCTORS
         public ApplicationUser() {
             this.Orders = new HashSet<Order>();
             this.CartItems = new HashSet<CartItem>();
         }
 
-
-        public virtual ICollection<Order> Orders { get; set; }
-        public virtual ICollection<CartItem> CartItems { get; set; }
-
+        // METHODS
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

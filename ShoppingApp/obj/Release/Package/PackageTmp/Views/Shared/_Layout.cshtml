@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/Site.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <br /><br /><br />
+        <br /><br /><br />
+        <p class="LeftMarginIndent">The Watch Foundry</p>
+    </header>
+
+    <nav id="NavID" class="Width100">
+        <div class="container-fluid NavHor Width100">
+            <div class="row Width100">
+                <div class="col-sm-2">
+                    <b class="NavController fa fa-fw fa-bars fa-2x Float_Left Zero_Margins" onmouseover="openNav()" onmouseout="closeNav()"></b>
+                    @*<b class="NavController fa fa-fw fa-chevron-circle-down Zero_Margins"></b>
+                    <b class="NavController fa fa-fw fa-chevron-circle-right Zero_Margins"></b>*@
+                </div>
+                <div class="col-sm-2"></div>
+                <div class="col-sm-6 Align_Text_Right">
+                    @Html.Partial("_LoginPartial")
+                </div>
+                <div class="col-sm-2 Align_Text_Right">
+                    @if (Request.IsAuthenticated) {
+                        <a href=@Url.Action("Index", "CartItems")>
+                            <i class="fa fa-fw fa-shopping-cart fa-lg" style="text-decoration: none; color: white;"></i>
+                        </a>
+                        <small>
+                            @ViewBag.CartItems.Count
+                            Items
+                        </small>
+                    }
+                    <i class="fa fa-fw fa-search fa-2x Float_Right"></i>
+                </div>
+            </div>
+        </div>
+
+        <div id = "NavVerID" class="NavVer" onmouseover="openNav()" onmouseout="closeNav()">
+            <div @*class="NavVer"*@>
+                <div class="NavItems">
+                    <a href="#">Watch Series 1</a>
+                    <a href="#">Watch Series 2</a>
+                    <a href="#">Collection</a>
+                    <div class="NavItemsSub">
+                        <a href="#">2017</a>
+                        <a href="#">2016</a>
+                        <a href="#">2015</a>
+                        <a href="#">2014</a>
+                    </div>
+                    <a href="#">Straps</a>
+                    <a href="#">Parts</a>
+                    <a href="#">Tools</a>
+                    <a href="#">Accessories</a>
+                </div>
+                <div class="NavMenu">
+                    <a href="#">Contact</a>
+                    <a href="#">Newsletter</a>
+                    <a href="#">Subscribe</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <!-- SUBSCRIPTION FORM -->
+        <div id="subscribe" class="TopMarginSpacing LeftMarginIndent">
+            <div class="Vertical_Align">
+                <h1>Subscribe</h1>
+                <br />
+                <p>
+                    To get special offers and
+                    <!--Using the SPAN tag to turn the word "VIP" red-->
+                    <span style="color:red">
+                        VIP
+                    </span>
+                    treatment:
+                </p>
+                <input placeholder="Enter e-mail" />
+                <button>Subscribe</button>
+            </div>
+        </div>
+
+        <!-- SECONDARY CONTENT -->
+        <div class="Sec_Content TopMarginSpacing LeftMarginIndent">
+            <div class="container">
+                <div class="row">
+                    <!-- Question Submission Form -->
+                    <div class="col-lg-4 col-sm-4">
+                        <div class="Sec_Content_Col Align_Text_Left">
+                            <h3>Contact</h3>
+                            <p>Questions? Go ahead!</p>
+                            <input placeholder="Name" />
+                            <br />
+                            <input placeholder="Email" />
+                            <br />
+                            <input placeholder="Subject" />
+                            <br />
+                            <input placeholder="Message" />
+                            <br />
+                            <button>Send</button>
+                        </div>
+                    </div>
+                    <!-- Miscellaneous Links -->
+                    <div class="col-lg-4 col-sm-4">
+                        <div class="Sec_Content_Col">
+                            <h3>About</h3>
+                            <a href="#">About Us</a>
+                            <br />
+                            <a href="#">We're Hiring</a>
+                            <br />
+                            <a href="#">Support</a>
+                            <br />
+                            <a href="#">Find Store</a>
+                            <br />
+                            <a href="#">Shipment</a>
+                            <br />
+                            <a href="#">Payment</a>
+                            <br />
+                            <a href="#">Gift Card</a>
+                            <br />
+                            <a href="#">Return</a>
+                            <br />
+                            <a href="#">Help</a>
+                        </div>
+                    </div>
+                    <!-- Contact Links -->
+                    <div class="col-lg-4 col-sm-4">
+                        <div class="Sec_Content_Col Align_Text_Left">
+                            <!-- Contact Information -->
+                            <h3>Store</h3>
+                            <a href="#"><i class="fa fa-fw fa-map-marker" aria-hidden="true"></i>&#32;The Watch Foundry</a>
+                            <br />
+                            <a href="#"><i class="fa fa-fw fa-phone" aria-hidden="true"></i>&#32;555-867-5309</a>
+                            <br />
+                            <a href="mailto:ex@mail.com"><i class="fa fa-fw fa-envelope" aria-hidden="true"></i>&#32;contactus@watchfoundry.com</a>
+                            <br />
+                            <br />
+                            <!-- Accepted Forms of Payment -->
+                            <h4>We Accept</h4>
+                            <a href="#"><i class="fa fa-fw fa-cc-amex" aria-hidden="true"></i>&#32;Amex</a>
+                            <br />
+                            <a href="#"><i class="fa fa-fw fa-credit-card" aria-hidden="true"></i>&#32;Credit Card</a>
+                            <br />
+                            <br />
+
+                            <!-- Social Media Links -->
+                            <h4>Follow Us</h4>
+                            <a href="#"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-snapchat" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="LeftMarginIndent; RightMarginIndent">
+            <h3>Powered by <a href="http://www.coderfoundry.com/">Coder Foundry</a></h3>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script>
+        function openNav() {
+            document.getElementById("NavVerID").style.width = "180px";
+            document.getElementById("#BodySection").style.marginLeft = "200px";
+
+        }
+        function closeNav() {
+            document.getElementById("NavVerID").style.width = "0px";
+            document.getElementById("#BodySection").style.marginLeft = "0px";
+
+        }
+    </script>
+</body>
+</html>

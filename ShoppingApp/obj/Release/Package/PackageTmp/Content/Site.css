@@ -1,0 +1,315 @@
+﻿body {
+    background-color: aliceblue;
+}
+
+header {
+    background-image: url('../Assets/Images/m-header.jpg');
+    background-size: cover;
+    margin-left: 5px;
+    height: 200px;
+    position: page;
+    width: 100%;
+    color: aliceblue;
+}
+
+    header a {
+        color: aliceblue;
+    }
+
+    header p {
+        text-align: center;
+        color: aliceblue;
+        font-size: 4vw;
+        font-weight: 700;
+        font-family: Verdana, Geneva, Tahoma, sans-serif
+    }
+
+.banner {
+    position: page;
+    left: 10px;
+    right: 10px;
+}
+
+/* NAVIGATION BAR */
+nav {
+    margin-left: 5px;
+    width: 100%;
+}
+
+.NavController:hover {
+    color: black;
+}
+
+.NavHor {
+    width: 100%;
+    margin-left: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    height: 30px;
+    background: linear-gradient(to right, rgb(212,178,117) 0%, rgb(175,164,162) 100%);
+    color: white;
+}
+
+.NavVer {
+    position: absolute;
+    /*left: 0px;*/
+    background: linear-gradient(to bottom, rgb(212,178,117) 0%, rgb(175,164,162) 100%);
+    width: 0;
+    /*display:none;*/
+    text-decoration: none;
+    height: 100%;
+    margin-left: 0px;
+    overflow-x: hidden;
+    transition-delay: 0.3s;
+    transition-duration: 0.5s;
+    z-index: 1;
+}
+.NavMenu {
+    font-size: 24px;
+    /*display: block;*/
+    color: black;
+    text-decoration: none;
+    display: table;
+}
+
+    .NavMenu a {
+        font-size: 24px;
+        display: block;
+        color: rgb(19,62,105);
+        text-decoration: none;
+    }
+
+        .NavMenu a:hover {
+            background-color: rgb(161,153,150);
+        }
+
+.NavItems {
+    display: block;
+    z-index: 1;
+}
+
+    .NavItems a {
+        display: block;
+        color: rgb(19,62,105);
+        font-size: 18px;
+        text-decoration: none;
+    }
+
+        .NavItems a:hover {
+            background-color: rgb(35,51,102);
+            color: white;
+        }
+
+.NavItemsSub {
+    margin-left: 25px;
+}
+
+#NavID {
+}
+
+.menu {
+    width: 320px;
+    height: 100%;
+    background: #BCAD90;
+    position: fixed;
+    top: 0;
+    left: -320px;
+    transition: left .1s;
+}
+
+.menu-item:first-child {
+    margin-top: 180px;
+}
+
+.menu--open {
+    left: 0;
+}
+
+.menu-item {
+    color: #fff;
+    width: 100%;
+    padding: 1rem 3rem;
+    box-sizing: border-box;
+}
+
+    .menu-item:hover {
+        background: #91966E;
+        cursor: pointer;
+    }
+
+/* MAIN CONTENT */
+.Prod_Info {
+    display: block;
+}
+
+/* SUBSCRIPTION FORM */
+#subscribe {
+    height: 200px;
+    background-color: black;
+    color: white;
+    text-align: left;
+    padding-left: 20px;
+    padding-right: 20px;
+    /*display: table;*/
+    /*width: 100%;*/
+    max-width: 100%;
+}
+
+    #subscribe div {
+        width: 100%;
+        /*min-width: 100%*/
+    }
+
+    #subscribe h1 {
+        text-align: left;
+    }
+
+    #subscribe input {
+        width: 100%;
+        height: 20px;
+    }
+
+    #subscribe button {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        color: white;
+        background-color: rgb(35,51,102);
+        border: solid;
+        border-color: rgb(175,164,162);
+        font-weight: 700;
+    }
+
+        #subscribe button:hover {
+            background-color: rgb(175,164,162);
+            border-color: rgb(175,164,162);
+            color: rgb(35,51,102);
+            cursor: pointer;
+        }
+/* SECONDARY CONTENT */
+.Sec_Content {
+    display: inline-block;
+    width: 100%
+}
+
+.Sec_Content_Col {
+    /* Secondary Content Columns */
+    float: left;
+    text-align: center;
+}
+
+.Sec_Content_Col_Center h3 {
+    text-align: center;
+}
+
+.Sec_Content_Col input {
+    margin-top: 0px;
+    margin-bottom: 5px;
+    width: 220px;
+}
+
+.Sec_Content_Col button {
+    width: 220px;
+    color: white;
+    background-color: rgb(35,51,102);
+    border: none;
+    border-color: white;
+    font-weight: 700;
+}
+
+    .Sec_Content_Col button:hover {
+        background-color: rgb(175,164,162);
+        border-color: rgb(175,164,162);
+        color: rgb(35,51,102);
+        cursor: pointer;
+    }
+
+.Sec_Content_Col a {
+    text-decoration: none;
+    color: black;
+}
+
+.Sec_Content_Col_Left {
+    text-align: left;
+}
+/* FOOTER */
+footer {
+    text-align: center;
+    background-color: rgb(35,51,102);
+    height: 50px;
+    display: table;
+    position: page;
+    width: 100%;
+    max-width: 100%;
+    color: black;
+}
+
+    footer h3 {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    footer a {
+        color: white;
+    }
+/* ----GLOBAL STYLES---- */
+/* Margins */
+.TopMarginSpacing {
+    margin-top: 20px;
+}
+
+.LeftMarginIndent {
+    margin-left: 20px;
+}
+
+.RightMarginIndent {
+    margin-right: 200px;
+}
+
+.BottomMarginSpacing {
+    margin-bottom: 25px;
+}
+/* Alignment */
+.Align_Text_Left {
+    text-align: left;
+}
+
+.Align_Text_Right {
+    text-align: right;
+}
+
+.Align_Text_Center {
+    text-align: center;
+}
+
+.Float_Left {
+    float: left;
+}
+
+.Float_Right {
+    float: right;
+}
+
+.Vertical_Align {
+    /* Parent item to be set as display: table; */
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.DisplayTable {
+    display: table;
+}
+
+.Width100 {
+    width: 100%
+}
+
+.Zero_Margins {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+.No_Horizontal_Padding{
+    padding-left: 0px;
+    padding-right: 0px;
+}

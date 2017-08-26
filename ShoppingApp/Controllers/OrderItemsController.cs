@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using ShoppingApp.Models;
 using ShoppingApp.Models.CodeFirst;
+using Microsoft.AspNet.Identity;
+
 
 namespace ShoppingApp.Controllers
 {
@@ -18,6 +20,14 @@ namespace ShoppingApp.Controllers
         // GET: OrderItems
         public ActionResult Index()
         {
+            var user = db.Users.Find(User.Identity.GetUserId());
+            decimal OrderTotal = 0;
+            foreach (var i in user.OrderItems) {
+                OrderTotal += (i.Quantity * i.Item.UnitPrice);
+            }
+            ViewBag.CartTotal = OrderTotal;
+            return View(user.CartItems.ToList());
+
             var orderItems = db.OrderItems.Include(o => o.Item).Include(o => o.Order);
             return View(orderItems.ToList());
         }
