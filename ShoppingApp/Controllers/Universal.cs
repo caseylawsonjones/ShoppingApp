@@ -18,7 +18,7 @@ namespace ShoppingApp.Controllers {
                 ViewBag.LastName = user.LastName;
                 ViewBag.FullName = user.FullName;
                 ViewBag.CartItems = user.CartItems.ToList();
-                //ViewBag.CartItems = db.CartItems.AsNoTracking().Where(c => c.CustomerID == user.Id).ToList();
+                //ViewBag.CartItems = db.CartItems.AsNoTracking().Where(c => c.CustomerId == user.Id).ToList();
                 //ViewBag.ItemTypes = db.ItemTypes.AsNoTracking().OrderBy(testc => testc.TypeName).ToList();
                 //db.CartItems.AsNoTracking().whatever - this can be used to read the db and then close behind it
                 //I'm not sure what he was doing as it never was an issue for me.

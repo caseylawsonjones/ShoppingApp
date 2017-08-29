@@ -4,7 +4,7 @@
 @{
     ViewBag.Title = "Index";
 }
-<h2>Shopping Cart</h2>
+<h2>Shopping Cart <small>(@ViewBag.CartItems.Count Items)</small></h2>
 <br />
 
 <div class="container">
@@ -20,8 +20,16 @@
         <div class="col-md-1 col-sm-1">
             <h4>Price</h4>
         </div>
-        <div class="col-md-4 col-sm-4"></div>
+        <div class="col-md-2 col-sm-2"></div>
+        <div class="col-md-2 col-sm-2" style="margin-top: 4px;">
+            @using (Html.BeginForm("Index", "OrderItems", FormMethod.Post)) {
+                @Html.AntiForgeryToken()
+                <button type="submit" value="" class="form-actions no-color" style="border:none; color: white; background-color:rgb(35,51,102)">Checkout Now</button>
+            }
+        </div>
     </div>
+
+
 
     @foreach (var m in Model) {
         <div class="row" style="text-align: left">
@@ -38,14 +46,14 @@
                     </div>
                     @*INCREMENT BUTTON*@
                     <div class="col-xs-2 No_Horizontal_Padding" style="text-align: right; margin-top: 5px;">
-                        @using (Html.BeginForm("IncrementQuant", "CartItems", new { itemIDin = m.ID }, FormMethod.Post)) {
+                        @using (Html.BeginForm("IncrementQuant", "CartItems", new { itemIDin = m.Id }, FormMethod.Post)) {
                             @Html.AntiForgeryToken()
                             <button type="submit" value="" class="form-actions no-color fa fa-plus-circle" style="border:none; background-color:aliceblue"></button>
                         }
                     </div>
                     @*DECREMENT BUTTON*@
                     <div class="col-xs-1 No_Horizontal_Padding" style="text-align: left; margin-top: 5px;">
-                        @using (Html.BeginForm("DecrementQuant", "CartItems", new { itemIDin = m.ID }, FormMethod.Post)) {
+                        @using (Html.BeginForm("DecrementQuant", "CartItems", new { itemIDin = m.Id }, FormMethod.Post)) {
                             @Html.AntiForgeryToken()
                             <button type="submit" value="" class="form-actions no-color fa fa-minus-circle" style="border:none; background-color:aliceblue"></button>
                         }
@@ -57,7 +65,7 @@
                 <h6>$@m.unitTotal</h6>
             </div>
             <div class="col-md-2 col-sm-2" style="margin-top: 4px;">
-                @using (Html.BeginForm("RemoveItem", "CartItems", new { itemIDin = m.ID }, FormMethod.Post)) {
+                @using (Html.BeginForm("RemoveItem", "CartItems", new { itemIDin = m.Id }, FormMethod.Post)) {
                     @Html.AntiForgeryToken()
                     <button type="submit" value="" class="form-actions no-color" style="border:none; color: white; background-color:firebrick">Remove</button>
                 }

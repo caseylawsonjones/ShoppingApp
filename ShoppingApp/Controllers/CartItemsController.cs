@@ -67,8 +67,8 @@ namespace ShoppingApp.Controllers
             // If item exist in cart already, increment counter, do not add
             bool itemInCart = false;  //Boolean value to determine if item in in cart.  DB cannot be saved within foreach loop.
             foreach (var item1 in db.CartItems) {
-                if (item1.CustomerID == User.Identity.GetUserId()) {
-                    if (item1.ItemID == itemIDin) {
+                if (item1.CustomerId == User.Identity.GetUserId()) {
+                    if (item1.ItemId == itemIDin) {
                         item1.Count++;
                         itemInCart = true;
                     }
@@ -80,8 +80,8 @@ namespace ShoppingApp.Controllers
             }
             else {
                 CartItem newItem = new CartItem();
-                newItem.CustomerID = User.Identity.GetUserId();
-                newItem.ItemID = itemIn.ID;
+                newItem.CustomerId = User.Identity.GetUserId();
+                newItem.ItemId = itemIn.Id;
                 newItem.Count = 1;
                 newItem.CreationDate = DateTime.Now;
                 db.CartItems.Add(newItem);
@@ -167,7 +167,7 @@ namespace ShoppingApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,CustomerID,ItemID,Count,CreationDate")] CartItem cartItem)
+        public ActionResult Edit([Bind(Include = "Id,CustomerId,ItemId,Count,CreationDate")] CartItem cartItem)
         {
             if (ModelState.IsValid)
             {

@@ -13,12 +13,12 @@
             <div class="row">
                     @foreach (var item in Model) {
                         <div class="col-md-3 col-sm-6">
-                            <a href="@Url.Action("Details", "Items", new { id = item.ID })">
+                            <a href="@Url.Action("Details", "Items", new { id = item.Id })">
                                 <img src="@Url.Content(item.MediaURL)" class="img-responsive" /></a>
                             <div><h6>@item.Name</h6></div>
                             <div>
                                 <h6><b>$@item.Price</b>
-                                    @using (Html.BeginForm("Create", "CartItems", new { itemIDin = item.ID }, FormMethod.Post)) {
+                                    @using (Html.BeginForm("Create", "CartItems", new { itemIDin = item.Id }, FormMethod.Post)) {
                                         @Html.AntiForgeryToken()
                                         <button type="submit" value="Add to Cart" class="btn btn-default form-actions" style="color: aliceblue; background-color: rgb(35,51,102);">Add to Cart</button>
                                     }

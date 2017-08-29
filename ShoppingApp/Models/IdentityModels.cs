@@ -19,17 +19,20 @@ namespace ShoppingApp.Models
                 return FirstName = " " + LastName;
             }
         }
+        public string EmailAddress { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
         public virtual ICollection<CartItem> CartItems { get; set; }
         public virtual ICollection<OrderItem> OrderItems { get; set; }
-        //public virtual ICollection<OrderArchiveItem> OrderArchiveItems { get; set; }
-        // ORDER ARCHIVING NEEDS TO BE CREATED BEFORE THIS CAN BE IMPLEMENTED
         public virtual ICollection<ShippingAddress> ShippingAddresses { get; set; }
+        public virtual ICollection<PaymentMethod> PaymentMethods { get; set; }
 
         // CONSTRUCTORS
         public ApplicationUser() {
             this.Orders = new HashSet<Order>();
             this.CartItems = new HashSet<CartItem>();
+            this.OrderItems = new HashSet<OrderItem>();
+            this.ShippingAddresses = new HashSet<ShippingAddress>();
+            this.PaymentMethods = new HashSet<PaymentMethod>();
         }
 
         // METHODS
@@ -52,12 +55,13 @@ namespace ShoppingApp.Models
         public static ApplicationDbContext Create() { 
             return new ApplicationDbContext();
         }
-        // You have to add all classes 
+        // You have to add all classes
         public DbSet<Item> Items { get; set; } //You pluralize the name here because it does it itself somewhere else
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
-
+        public DbSet<ShippingAddress> ShippingAddresses { get; set; }
+        public DbSet<PaymentMethod> PaymentMethods { get; set; }
 
 
 
