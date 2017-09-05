@@ -18,13 +18,11 @@ namespace ShoppingApp.Models.CodeFirst {
         public string State { get; set; }
         public string ZipCode { get; set; }
         public string Country { get; set; }
-        public string Phone { get; set; }
-
+        //public string Phone { get; set; }
         public decimal Total { get; set; }
         public DateTime OrderDate { get; set; }
 
         public virtual ApplicationUser Customer { get; set; }
-        // I think I added this and it is not needed.
         public virtual ICollection<OrderItem> OrderItems { get; set; }
 
 

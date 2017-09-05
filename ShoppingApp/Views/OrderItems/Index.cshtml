@@ -1,59 +1,215 @@
-﻿@model IEnumerable<ShoppingApp.Models.CodeFirst.OrderItem>
+﻿@model List<ShoppingApp.Models.CodeFirst.OrderItem>
 
 
 @{
     ViewBag.Title = "Index";
 }
-<h2>Review and Place Your Order <small>(@ViewBag.CartItems.Count Items)</small></h2>
-<br />
 
-<div class="container" style="">
-    <div class="row"style="text-align: left; border-bottom:groove; border-top:groove; ">
-        <h4>Shipping Address</h4>
-        @if (ViewBag.ShippingAddress.IsEmpty = false) {
-            <h3>@ViewBag.User.ShippingAddresses.AddressDesc</h3>
-            <h3>@ViewBag.User.ShippingAddresses.Recipient</h3>
-            <h3>@ViewBag.User.ShippingAddresses.StreetAddress</h3>
-            <h3>@ViewBag.User.ShippingAddresses.City , @ViewBag.User.ShippingAddress.State , @ViewBag.User.ShippingAddress.ZipCode</h3>
-            <h3>@ViewBag.User.ShippingAddresses.PhoneNumber</h3>
-            <h3>@ViewBag.User.ShippingAddresses.SpecInstructions</h3>
-        }
-        else {
-            <h3><b>No Shipping Information Exists</b></h3>
-            // ADD A METHOD TO ADD  NEW SHIPPING ADDRESSES - MAYBE MAKE IT A MODAL, FOR CONVENIENCE
-            // DON'T FORGET FUNCTION OVER FORM THOUGH!!!!
-            @using (Html.BeginForm("Index", "Order", FormMethod.Post)) {
-                @Html.AntiForgeryToken()
-                <button type="submit" value="" class="form-actions no-color" style="border:none; color: white; background-color:rgb(35,51,102)">Add Shipping Address</button>
-            }
-        }
-</div>
+<div class="container">
     <div class="row">
-        @*Payment Method Selection*@
-    </div>
-    @*HEADER ROW*@
-    <div class="row" style="text-align: left; border-bottom:groove; border-top:groove; ">
-        <div class="col-md-1 col-sm-1"></div>
-        <div class="col-md-1 col-sm-1">
-            <h4>Item</h4>
+        <div class="col-md-9">
+            <h2>Review and Place Your Order <small>(@ViewBag.CartItems.Count Items)</small></h2>
         </div>
-        <div class="col-md-1 col-sm-1" style="text-align:left; ">
-            <h4>Price</h4>
-        </div>
-        <div class="col-md-1 col-sm-1" style="text-align:center; ">
-            <h4>Qty</h4>
-        </div>
-        <div class="col-md-1 col-sm-1">
-            <h4>Total</h4>
-        </div>
-        <div class="col-md-2 col-sm-2"></div>
-        <div class="col-md-2 col-sm-2" style="margin-top: 4px;">
-            @using (Html.BeginForm("Index", "Order", FormMethod.Post)) {
+        <div class="col-md-3">
+            <br />
+            @using (Html.BeginForm("Create", "Orders", FormMethod.Post)) {
                 @Html.AntiForgeryToken()
-                <button type="submit" value="" class="form-actions no-color" style="border:none; color: white; background-color:rgb(35,51,102)">Place Order</button>
+                if (ViewBag.ShippingAddress.Id != null) {
+                    <input type="hidden" name="orderShippingAddressId" value="@ViewBag.ShippingAddress.Id" />
+                }
+                if (ViewBag.PaymentMethod.Id != null) {
+                    <input type="hidden" name="orderPaymentMethodId" value="@ViewBag.PaymentMethod.Id" /> @*orderPaymentMethodIdString is not actually used until the payment processing method is created.*@
+                }
+                <input type="hidden" name="orderTotal" value="@ViewBag.OrderTotal" />
+                if (ViewBag.IsOrderReady) {
+                    <button type="submit" value="" class="form-actions no-color" style="border:none; color: white; background-color:rgb(35,51,102); height: 35px;">Place Order</button>
+                }
             }
         </div>
     </div>
+    <br />
+    @*SHIPPING ADDRESS*@
+    <div class="row" style="text-align: left; border-top:groove; ">
+        <div class="col-md-9">
+            <h3><u>Shipping Address</u></h3>
+        </div>
+        <div class="col-md-3">
+            <br />
+            @using (Html.BeginForm("AddShippingAddresses", "Account", FormMethod.Get)) {
+                @Html.AntiForgeryToken()
+                <button type="submit" value="" class="form-actions no-color" style="border:none; color: white; background-color:rgb(35,51,102); height:35px;">Add Shipping Address</button>
+            }
+        </div>
+    </div>
+    @if (ViewBag.AreShippingAddressesPresent == true) {
+        <div class="row">
+            <div class="col-md-3">
+                <label>Address Description:</label>
+            </div>
+            <div class="col-md-9">
+                <h5>@ViewBag.ShippingAddress.AddressDesc</h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <label>Recipient:</label>
+            </div>
+            <div class="col-md-9">
+                <h5>@ViewBag.ShippingAddress.Recipient</h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <label>Street Address:</label>
+            </div>
+            <div class="col-md-9">
+                <h5>@ViewBag.ShippingAddress.StreetAddress</h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <label>City, State, Zip Code:</label>
+            </div>
+            <div class="col-md-9">
+                <h5>@ViewBag.ShippingAddress.City @ViewBag.ShippingAddress.State @ViewBag.ShippingAddress.ZipCode</h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <label>Phone Number:</label>
+            </div>
+            <div class="col-md-9">
+                <h5>@ViewBag.ShippingAddress.PhoneNumber</h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <label>Special Instructions:</label>
+            </div>
+            <div class="col-md-9">
+                <h5>@ViewBag.ShippingAddress.SpecInstructions</h5>
+            </div>
+        </div>
+    }
+    else {
+    <div class="row">
+        <h3><b>No Shipping Information Exists</b></h3>
+    </div>
+    }
+
+    @*PAYMENT METHOD*@
+    <div class="row" style="text-align: left; border-top:groove; ">
+        <div class="col-md-9">
+            <h3><u>Payment Method</u></h3>
+        </div>
+        <div class="col-md-3">
+            <br />
+            @using (Html.BeginForm("AddPaymentMethods", "Account", FormMethod.Get)) {
+                @Html.AntiForgeryToken()
+                <button type="submit" value="" class="form-actions no-color" style="border:none; color: white; background-color:rgb(35,51,102); height:35px;">Add Payment Method</button>
+            }
+        </div>
+    </div>
+    @if (ViewBag.ArePaymentMethodsPresent == true) {
+        <div class="row">
+            <div class="col-md-3">
+                <label>Name on Card:</label>
+            </div>
+            <div class="col-md-9">
+                <h5>@ViewBag.PaymentMethod.CardNameFirst @ViewBag.PaymentMethod.CardNameLast</h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <label>Card Type:</label>
+            </div>
+            <div class="col-md-9">
+                <h5>@ViewBag.PaymentMethod.CardBrand</h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <label>Card Number:</label>
+            </div>
+            <div class="col-md-9">
+                <h5>@ViewBag.PaymentMethod.CardNumber</h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <label>Security Code:</label>
+            </div>
+            <div class="col-md-9">
+                <h5>@ViewBag.PaymentMethod.SecurityCode</h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <label>Expiration Date:</label>
+            </div>
+            <div class="col-md-9">
+                <h5>@ViewBag.PaymentMethod.ExpirationDate.ToShortDateString()</h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-9">
+                <h3><u>Billing Address</u></h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <label>Street Address:</label>
+            </div>
+            <div class="col-md-9">
+                <h5>@ViewBag.PaymentMethod.StreetAddress</h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <label>City, State, Zip:</label>
+            </div>
+            <div class="col-md-9">
+                <h5>@ViewBag.PaymentMethod.City, @ViewBag.PaymentMethod.State, @ViewBag.PaymentMethod.ZipCode</h5>
+            </div>
+        </div>
+    }
+    else {
+        <div class="row">
+            <h3><b>No Payment Method Exists</b></h3>
+        </div>
+    }
+
+        @*PRODUCT HEADER ROW*@
+        <div class="row" style="text-align: left; border-bottom:groove; border-top:groove; ">
+            <div class="col-md-1 col-sm-1"></div>
+            <div class="col-md-1 col-sm-1">
+                <h4>Item</h4>
+            </div>
+            <div class="col-md-1 col-sm-1" style="text-align:left; ">
+                <h4>Price</h4>
+            </div>
+            <div class="col-md-1 col-sm-1" style="text-align:center; ">
+                <h4>Qty</h4>
+            </div>
+            <div class="col-md-1 col-sm-1">
+                <h4>Total</h4>
+            </div>
+            <div class="col-md-2 col-sm-2"></div>
+            <div class="col-md-2 col-sm-2" style="margin-top: 4px;">
+            </div>
+        </div>
 
 
 

@@ -223,6 +223,7 @@
     <Content Include="Assets\CSS\Stylesheet.css" />
     <Content Include="Assets\fonts\fontawesome-webfont.svg" />
     <Content Include="Assets\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Assets\Images\Coming Soon.jpg" />
     <Content Include="Assets\Images\m-header.jpg" />
     <Content Include="Assets\Images\m-header2.jpg" />
     <Content Include="Assets\Images\m0.jpg" />
@@ -380,7 +381,9 @@
     <Content Include="Scripts\tinymce\langs\readme.md" />
     <None Include="Properties\PublishProfiles\cjones-shopping - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\cjones-shopping - Web Deploy.pubxml" />
-    <None Include="Views\Items\Index.cshtml" />
+    <Content Include="Views\Account\AddShippingAddresses.cshtml" />
+    <Content Include="Views\Account\AddPaymentMethods.cshtml" />
+    <Content Include="Views\Items\Index.cshtml" />
     <Content Include="Assets\Scripts\bootstrap.js" />
     <Content Include="Assets\Scripts\bootstrap.min.js" />
     <None Include="Assets\Scripts\jquery-1.9.1.intellisense.js" />
@@ -467,7 +470,6 @@
     <Content Include="Views\Items\Delete.cshtml" />
     <Content Include="Views\Items\Details.cshtml" />
     <Content Include="Views\Items\Edit.cshtml" />
-    <Content Include="Views\Items\Index2.cshtml" />
     <Content Include="Views\Orders\Create.cshtml" />
     <Content Include="Views\Orders\Delete.cshtml" />
     <Content Include="Views\Orders\Details.cshtml" />

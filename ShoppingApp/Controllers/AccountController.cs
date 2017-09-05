@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ShoppingApp.Models;
+using ShoppingApp.Models.CodeFirst;
 
 namespace ShoppingApp.Controllers
 {
@@ -79,7 +80,12 @@ namespace ShoppingApp.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    if(returnUrl.StartsWith("http")) {
+                    if (returnUrl == null) {
+                        var controller = DependencyResolver.Current.GetService<ItemsController>();
+                        var redirectToController = controller.Index();
+                        return redirectToController;
+                    }
+                    if (returnUrl.StartsWith("http")) {
                         return Redirect(returnUrl);
                     }
                     return RedirectToLocal(returnUrl);
@@ -166,7 +172,7 @@ namespace ShoppingApp.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Items");
                 }
                 AddErrors(result);
             }
@@ -391,11 +397,12 @@ namespace ShoppingApp.Controllers
         //
         // POST: /Account/LogOff
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult LogOff(string returnUrl)
-        {
+        public ActionResult LogOff(string returnUrl) {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return Redirect(returnUrl);
+
+            return RedirectToAction("Index", "Items");
         }
 
         //
@@ -405,6 +412,69 @@ namespace ShoppingApp.Controllers
         {
             return View();
         }
+
+        //
+        // GET: /Account/AddShippingAddresses
+        public ActionResult AddShippingAddresses() {
+            return View();
+        }
+
+        //
+        // POST: /Account/AddShippingAddresses
+        [HttpPost]
+        public ActionResult AddShippingAddresses([Bind(Include = "Id,CustomerId,AddressDesc,Recipient,StreetAddress,City,State,ZipCode,PhoneNumber,SpecInstructions")] ShippingAddress shippingAddress, Boolean isDefault) {
+            if (ModelState.IsValid) {
+                var user = db.Users.Find(User.Identity.GetUserId());
+                shippingAddress.CustomerId = (User.Identity.GetUserId());
+                db.ShippingAddresses.Add(shippingAddress);
+                db.SaveChanges();
+                if (isDefault) {
+                    user.DefaultShippingAddressId = shippingAddress.Id;
+                    db.SaveChanges();
+                }
+                var model = new IndexViewModel(); // This is added because the Manage/Index view requires the model to be passed.
+                return View("../Manage/Index", model);
+            }
+            return View(shippingAddress);
+        }
+
+        //
+        // GET: /Account/AddPaymentMethods
+        public ActionResult AddPaymentMethods() {
+            return View();
+        }
+
+        //
+        // POST: /Account/AddPaymentMethods
+        [HttpPost]
+        public ActionResult AddPaymentMethods([Bind(Include = "Id,CustomerId,CardNameFirst,CardNameLast,CardBrand,CardNumber,SecurityCode,ExpirationDate,StreetAddress,City,State,ZipCode")] PaymentMethod paymentMethod, Boolean isDefault) {
+            if (ModelState.IsValid) {
+                var user = db.Users.Find(User.Identity.GetUserId());
+                paymentMethod.CustomerId = (User.Identity.GetUserId());
+                db.PaymentMethods.Add(paymentMethod);
+                db.SaveChanges();
+                if (isDefault) {
+                    user.DefaultPaymentMethhodId = paymentMethod.Id;
+                    db.SaveChanges();
+                }
+                var model = new IndexViewModel(); // This is added because the Manage/Index view requires the model to be passed.
+                return View("../Manage/Index", model);
+            }
+            return View(paymentMethod);
+        }
+
+        // POST: /Account/ManageShippingAddresses
+        //[Authorize]
+        public ActionResult ManageShippingAddresses() {
+            return View();
+        }
+        //
+        // POST: /Account/ManagePaymentMethods
+        //[Authorize]
+        public ActionResult ManagePaymentMethods() {
+            return View();
+        }
+
 
         protected override void Dispose(bool disposing)
         {

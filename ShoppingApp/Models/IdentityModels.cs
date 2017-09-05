@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using ShoppingApp.Models.CodeFirst;
 using System.Collections.Generic;
+using System;
 
 namespace ShoppingApp.Models
 {
@@ -16,9 +17,33 @@ namespace ShoppingApp.Models
         public string LastName { get; set; }
         public string FullName {  // just a Get, so it won't be in the database, but will be available for coding purposes
             get {
-                return FirstName = " " + LastName;
+                return FirstName + " " + LastName;
             }
         }
+        //public DateTime CreationDate { get; set; }
+        //public DateTime? UpdatedDate { get; set; }
+        public bool AreShippingAddressesPresent {
+            get {
+                if(ShippingAddresses.Count > 0) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+        }
+        public bool ArePaymentMethodsPresent {
+            get {
+                if (PaymentMethods.Count > 0) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+        }
+        public int? DefaultShippingAddressId { get; set; }
+        public int? DefaultPaymentMethhodId { get; set; }
         public string EmailAddress { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
         public virtual ICollection<CartItem> CartItems { get; set; }

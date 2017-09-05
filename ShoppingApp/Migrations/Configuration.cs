@@ -1,14 +1,15 @@
-﻿using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using ShoppingApp.Models;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity.Migrations;
-using System.Linq;
-using System.Web;
+﻿namespace ShoppingApp.Migrations
+{
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using ShoppingApp.Models;
+    using System;
+    using System.Data.Entity;
+    using System.Data.Entity.Migrations;
+    using System.Linq;
 
-namespace ShoppingApp.Migrations {
-    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext> {
+    internal sealed class Configuration : DbMigrationsConfiguration<ShoppingApp.Models.ApplicationDbContext>
+    {
         public Configuration() {
             AutomaticMigrationsEnabled = true;
         }
@@ -30,6 +31,5 @@ namespace ShoppingApp.Migrations {
             var userID = userManager.FindByEmail("caseylawsonjones@yahoo.com").Id;
             userManager.AddToRole(userID, "Admin");
         }
-
     }
 }

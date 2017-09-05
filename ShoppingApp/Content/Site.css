@@ -1,5 +1,7 @@
 ﻿body {
     background-color: aliceblue;
+    left: 180px;
+    /*margin-left: 180px;*/
 }
 
 header {
@@ -185,6 +187,7 @@ nav {
             color: rgb(35,51,102);
             cursor: pointer;
         }
+
 /* SECONDARY CONTENT */
 .Sec_Content {
     display: inline-block;
@@ -231,6 +234,8 @@ nav {
 .Sec_Content_Col_Left {
     text-align: left;
 }
+
+
 /* FOOTER */
 footer {
     text-align: center;
@@ -251,6 +256,8 @@ footer {
     footer a {
         color: white;
     }
+
+
 /* ----GLOBAL STYLES---- */
 /* Margins */
 .TopMarginSpacing {
@@ -268,6 +275,7 @@ footer {
 .BottomMarginSpacing {
     margin-bottom: 25px;
 }
+
 /* Alignment */
 .Align_Text_Left {
     text-align: left;
@@ -295,6 +303,11 @@ footer {
     vertical-align: middle;
 }
 
+.VerticalCenter {
+    display: table-cell;
+    vertical-align: middle;
+}
+
 .DisplayTable {
     display: table;
 }
@@ -309,6 +322,7 @@ footer {
     margin-left: 0px;
     margin-right: 0px;
 }
+
 .No_Horizontal_Padding{
     padding-left: 0px;
     padding-right: 0px;

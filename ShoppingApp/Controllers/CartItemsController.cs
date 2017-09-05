@@ -26,10 +26,14 @@ namespace ShoppingApp.Controllers
         {
             var user = db.Users.Find(User.Identity.GetUserId());
             decimal CartTotal = 0;
+            ViewBag.Empty = false;
             foreach(var i in user.CartItems) {
                 CartTotal += (i.Count * i.Item.Price);
             }
             ViewBag.CartTotal = CartTotal;
+            if (CartTotal == 0) {
+                ViewBag.Empty = true;
+            }
             return View(user.CartItems.ToList());
         }
 
@@ -57,6 +61,8 @@ namespace ShoppingApp.Controllers
         [ValidateAntiForgeryToken]
         [Authorize]
         public ActionResult Create(int? itemIDin) {
+            var user = db.Users.Find(User.Identity.GetUserId());
+
             if (itemIDin == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -66,12 +72,10 @@ namespace ShoppingApp.Controllers
             }
             // If item exist in cart already, increment counter, do not add
             bool itemInCart = false;  //Boolean value to determine if item in in cart.  DB cannot be saved within foreach loop.
-            foreach (var item1 in db.CartItems) {
-                if (item1.CustomerId == User.Identity.GetUserId()) {
-                    if (item1.ItemId == itemIDin) {
-                        item1.Count++;
-                        itemInCart = true;
-                    }
+            foreach (var item1 in user.CartItems) {
+                if (item1.ItemId == itemIDin) {
+                    item1.Count++;
+                    itemInCart = true;
                 }
             }
             if (itemInCart) {
@@ -107,7 +111,7 @@ namespace ShoppingApp.Controllers
         public ActionResult DecrementQuant(int itemIDin) {
             CartItem itemIn = db.CartItems.Find(itemIDin);
             itemIn.Count--;
-            if(itemIn.Count >= 0) { RemoveItem(itemIDin); }
+            if(itemIn.Count <= 0) { RemoveItem(itemIDin); }
             db.SaveChanges();
             return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
         }

@@ -8,12 +8,13 @@
 
 
 @using (Html.BeginForm("Edit", "Items", new { mediaURL = Model.MediaURL }, FormMethod.Post, new { enctype = "Multipart/form-data" })) {
-        @Html.AntiForgeryToken()
-        <div class="form-horizontal">
-        <h4>Item</h4>
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ID)
+        @* These hidden fields allow the information to be passed back to the Edit Post method without creating null values.
+            It also prevents the user from modifying the fields.*@
+        @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.CreationDate)
         @Html.HiddenFor(model => model.UpdatedDate)
         <div class="container-fluid">
@@ -57,14 +58,16 @@
                             <input type="submit" value="Save" class="btn btn-default" />
                         </div>
                     </div>
+
                 </div>
+
                 <div class="col-md-1 col-sm-1"></div>
                 <div class="col-md-4 col-sm-4 VerticalCenter">
                     <img src="@Url.Content(Model.MediaURL)" class="img-responsive" alt="Image" />
                 </div>
             </div>
-            </div>
         </div>
+    </div>
 }
 
 <div>
@@ -75,12 +78,11 @@
     @Scripts.Render("~/bundles/jqueryval")
 <script src="~/Scripts/tinymce/tinymce.min.js"></script>
 <script src="~/Scripts/tinymce/jquery.tinymce.min.js"></script>
-<script type="text/javascript">
+<script type="text/javascript">  // Loads the TinyMCE Rich Text Editor and loads it for the "editor" id. 
         $(function () {
             tinymce.init({
                 selector: '#editor'
             });
         });
 </script>
-}
 }

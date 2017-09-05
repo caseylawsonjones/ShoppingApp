@@ -6,7 +6,7 @@ using System.Web;
 namespace ShoppingApp.Models.CodeFirst {
     public class PaymentMethod {
         public int Id { get; set; }
-        public Boolean Default { get; set; }
+        public string CustomerId { get; set; }
         public string CardNameFirst { get; set; }
         public string CardNameLast { get; set; }
         public string CardBrand { get; set; }
@@ -18,5 +18,6 @@ namespace ShoppingApp.Models.CodeFirst {
         public string City { get; set; }
         public string State { get; set; }
         public string ZipCode { get; set; }
+        public virtual ApplicationUser Customer { get; set; }
     }
 }

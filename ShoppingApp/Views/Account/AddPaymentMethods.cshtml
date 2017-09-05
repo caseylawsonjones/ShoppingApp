@@ -1,0 +1,118 @@
+﻿@model ShoppingApp.Models.CodeFirst.PaymentMethod
+
+@{
+    ViewBag.Title = "Add Payment Methods";
+}
+
+<h2>Add Payment Method</h2>
+
+@using (Html.BeginForm("AddPaymentMethods", "Account", FormMethod.Post)) {
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @*@Html.HiddenFor(model => model.Id)*@
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Default Payment?</label>
+            <div class="col-md-10">
+                @Html.CheckBox("isDefault", true)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CardNameFirst, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CardNameFirst, new { htmlAttributes = new { @class = "form-control", placeholder = "Card Holder's First Name" } })
+                @Html.ValidationMessageFor(model => model.CardNameFirst, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CardNameLast, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CardNameLast, new { htmlAttributes = new { @class = "form-control", placeholder = "Card Holder's Last Name" } })
+                @Html.ValidationMessageFor(model => model.CardNameLast, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CardBrand, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CardBrand, new { htmlAttributes = new { @class = "form-control", placeholder = "e.g. 'MasterCard', 'Visa', 'American Express'" } })
+                @Html.ValidationMessageFor(model => model.CardBrand, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CardNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CardNumber, new { htmlAttributes = new { @class = "form-control", placeholder = "Card Number" } })
+                @Html.ValidationMessageFor(model => model.CardNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SecurityCode, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SecurityCode, new { htmlAttributes = new { @class = "form-control", placeholder = "Three Digit Security Code on the Back of the Card" } })
+                @Html.ValidationMessageFor(model => model.SecurityCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ExpirationDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ExpirationDate, new { htmlAttributes = new { @class = "form-control", placeholder = "Expiration Date" } })
+                @Html.ValidationMessageFor(model => model.ExpirationDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Street Address</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.StreetAddress, new { htmlAttributes = new { @class = "form-control", placeholder = "Street Address" } })
+                @Html.ValidationMessageFor(model => model.StreetAddress, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", placeholder = "City" } })
+                @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "form-control", placeholder = "State" } })
+                @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Zip Code</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ZipCode, new { htmlAttributes = new { @class = "form-control", placeholder = "Zip Code" } })
+                @Html.ValidationMessageFor(model => model.ZipCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

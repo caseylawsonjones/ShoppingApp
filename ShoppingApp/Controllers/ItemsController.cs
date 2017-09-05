@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using ShoppingApp.Models;
 using ShoppingApp.Models.CodeFirst;
 using System.IO;
+using Microsoft.AspNet.Identity;
 
 namespace ShoppingApp.Controllers
 {
@@ -39,6 +40,7 @@ namespace ShoppingApp.Controllers
             {
                 return HttpNotFound();
             }
+            string tempPath = HttpContext.Request.Url.AbsoluteUri;
             return View(item);
         }
 
@@ -61,6 +63,7 @@ namespace ShoppingApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,CreationDate,UpdatedDate,Name,Price,MediaURL,Description")] Item item, HttpPostedFileBase image)
         {
+            bool noImage = false;
             if (image != null && image.ContentLength > 0) {
                 var ext = Path.GetExtension(image.FileName).ToLower(); // Gets image's extension and then sets it to lower case
                 if (ext != ".png" && ext != ".jpg" && ext != ".jpeg" && ext != ".gif" && ext != ".bmp") {
@@ -68,19 +71,23 @@ namespace ShoppingApp.Controllers
                 }
             }
             else {
-                // Maybe add a default image here instead of returning an error
-                ModelState.AddModelError("image", "No Image Selected");
+                noImage = true;
             }
             if (ModelState.IsValid) {
                 var filePath = "/Assets/Images/";
                 var absPath = Server.MapPath("~" + filePath);
-                item.MediaURL = filePath + image.FileName;
-                image.SaveAs(Path.Combine(absPath, image.FileName));
+                if (noImage) {
+                    item.MediaURL = "/Assets/Images/Coming Soon.jpg";
+                }
+                else {
+                    item.MediaURL = filePath + image.FileName;
+                    image.SaveAs(Path.Combine(absPath, image.FileName));
+                }
                 item.CreationDate = System.DateTime.Now;
                 item.UpdatedDate = System.DateTime.Now;
                 db.Items.Add(item);
                 db.SaveChanges();
-                return RedirectToAction("Index"); // Consider sending this back to a blank Create view for ease with multiple new items
+                return RedirectToAction("Create"); //Returns to Create action to facilitate multiple item creations
             }
             return View(item);
         }

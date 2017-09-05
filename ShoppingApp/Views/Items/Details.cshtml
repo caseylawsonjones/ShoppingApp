@@ -1,5 +1,4 @@
 ﻿@model ShoppingApp.Models.CodeFirst.Item
-@*@Styles.Render("~/Assets/CSS/ItemsDetails.css")*@
 
 @{
     ViewBag.Title = "Details";
@@ -70,7 +69,7 @@
         </div>
     </div>
 </div>
-@using (Html.BeginForm("Create", "CartItems", new { itemIDin = Model.ID }, FormMethod.Post)) {
+@using (Html.BeginForm("Create", "CartItems", new { itemIDin = Model.Id }, FormMethod.Post)) {
     @Html.AntiForgeryToken()
     <div class="form-actions no-color">
         <button type="submit" value="Add to Cart" class="btn btn-default form-actions" style="color: aliceblue; background-color: rgb(35,51,102);">Add to Cart</button>
@@ -78,9 +77,9 @@
 }
 <p>
     @if (User.IsInRole("Admin")) {
-        @Html.ActionLink("Edit", "Edit", new { id = Model.ID })
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
         <b>&#124;</b>
-        @Html.ActionLink("Delete", "Delete", new { id = Model.ID })
+        @Html.ActionLink("Delete", "Delete", new { id = Model.Id })
         <b>&#124;</b> 
     }
     @Html.ActionLink("Back to List", "Index")

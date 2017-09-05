@@ -1,87 +1,28 @@
-﻿@model IEnumerable<ShoppingApp.Models.CodeFirst.Order>
+﻿@model ShoppingApp.Models.CodeFirst.Order
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Order Completed";
 }
 
-<h2>Index</h2>
+<h1>Your Order Has Been Submitted Successfully!</h1>
+<h5>You will receive your order in 3-6 weeks.</h5>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Completed)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.City)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.State)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ZipCode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Country)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Phone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Total)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OrderDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CustomerID)
-        </th>
-        <th></th>
-    </tr>
+<div class="container" style="">
+    @*SHIPPING ADDRESS*@
+    <div class="row" style="text-align: left; border-top:groove; ">
+        <h4>Your order was shipped to this address:</h4>
+        <h5>@Model.Address</h5>
+        <h5>@Model.City @Model.State @Model.ZipCode</h5>
+    </div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Completed)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.City)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.State)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ZipCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Country)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Phone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Total)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OrderDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CustomerID)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
-</table>
+    @*PAYMENT METHOD*@
+    <div class="row" style="text-align: left; border-top:groove; ">
+        <h4>The payment was billed to your @ViewBag.CardBrand</h4>
+    </div>
+</div>
+<div>
+    @Html.ActionLink("Back to List", "Index", "Items")
+</div>
+<hr />
+<hr />
+<hr />
